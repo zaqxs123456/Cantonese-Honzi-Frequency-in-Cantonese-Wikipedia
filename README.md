@@ -1,6 +1,6 @@
 (English version at below)
 
-# 粵語維基裏面嘅粵語漢字頻率
+# 粵語維基嘅粵語漢字頻率
 
 * 用法：下載 `CantoneseHonziFreq.json`
 
