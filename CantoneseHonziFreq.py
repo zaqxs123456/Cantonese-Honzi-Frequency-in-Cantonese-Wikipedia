@@ -4,7 +4,6 @@ import json
 import sys
 import codecs
 
-print(sys.argv[1])
 tree = ET.parse(sys.argv[1])
 
 all_freq = {}
@@ -18,15 +17,12 @@ for i in all_can_str:
 
 sorted_can_str = {k: v for k, v in sorted(all_freq.items(), key=lambda item: item[1], reverse=True)}
 
-non_honzi = []
+honzi = {}
 
 for key in sorted_can_str:
-    if not re.match(pattern=r'[\u4e00-\u9fff]+', string=key):
-        non_honzi.append(key)
-
-for key in non_honzi:
-    if key in sorted_can_str:
-        del sorted_can_str[key]
+    if re.match(pattern=r'[\u4e00-\u9fff\u3400-\u4db5\U00020000-\U0002A6DF\U0002A700-\U0002B73F\U0002B740-\U0002B81F'
+                        r'\U0002B820-\U0002CEAF\U0002CEB0-\U0002EBEF]+', string=key):
+        honzi[key] = sorted_can_str[key]
 
 with codecs.open(sys.argv[2], 'w', encoding='utf-8') as f:
-    json.dump(sorted_can_str, f, ensure_ascii=False)
+    json.dump(honzi, f, ensure_ascii=False)
